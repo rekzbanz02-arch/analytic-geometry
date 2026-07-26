@@ -1,0 +1,1301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f766e" />
+  <title>Analytic Geometry Exam Master</title>
+  <style>
+    :root{
+      --bg:#f3f7f6;
+      --card:#ffffff;
+      --text:#16302d;
+      --muted:#60726f;
+      --primary:#0f766e;
+      --primary-2:#115e59;
+      --accent:#f59e0b;
+      --danger:#b91c1c;
+      --success:#15803d;
+      --border:#d7e3e1;
+      --shadow:0 12px 35px rgba(15,118,110,.12);
+      --radius:18px;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+      background:linear-gradient(135deg,#eff8f6 0%,#f8fafc 55%,#fff7e8 100%);
+      color:var(--text);
+      min-height:100vh;
+    }
+    button,input,select{font:inherit}
+    button{cursor:pointer}
+    .hidden{display:none!important}
+    .app-shell{max-width:1180px;margin:auto;padding:18px}
+    .topbar{
+      position:sticky;top:0;z-index:20;
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:12px 16px;margin-bottom:18px;
+      background:rgba(255,255,255,.92);backdrop-filter:blur(12px);
+      border:1px solid rgba(215,227,225,.9);border-radius:16px;box-shadow:var(--shadow)
+    }
+    .brand{display:flex;align-items:center;gap:11px}
+    .logo{
+      width:44px;height:44px;border-radius:14px;display:grid;place-items:center;
+      background:linear-gradient(135deg,var(--primary),#34d399);color:#fff;font-weight:900
+    }
+    .brand h1{font-size:1rem;margin:0}
+    .brand small{color:var(--muted)}
+    .top-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+    .btn{
+      border:none;border-radius:12px;padding:11px 15px;font-weight:750;
+      transition:.18s transform,.18s opacity,.18s box-shadow;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+    .btn-primary{background:var(--primary);color:#fff;box-shadow:0 8px 18px rgba(15,118,110,.2)}
+    .btn-secondary{background:#e6f3f1;color:var(--primary-2)}
+    .btn-outline{background:#fff;color:var(--text);border:1px solid var(--border)}
+    .btn-danger{background:#fee2e2;color:#991b1b}
+    .btn-warning{background:#fff4d6;color:#8a5200}
+    .hero{
+      display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch
+    }
+    .card{
+      background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+      box-shadow:var(--shadow);padding:22px
+    }
+    .hero-card{
+      background:
+        radial-gradient(circle at 90% 10%,rgba(245,158,11,.18),transparent 24%),
+        radial-gradient(circle at 15% 80%,rgba(52,211,153,.16),transparent 28%),
+        #fff;
+    }
+    .eyebrow{
+      display:inline-flex;align-items:center;gap:7px;background:#dff5f0;color:#0b5e56;
+      padding:7px 10px;border-radius:999px;font-size:.82rem;font-weight:800
+    }
+    h2{font-size:clamp(2rem,5vw,4rem);line-height:1.02;margin:15px 0 12px;letter-spacing:-.045em}
+    .hero p{color:var(--muted);font-size:1.03rem;line-height:1.65}
+    .scope{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+    .chip{padding:8px 11px;border-radius:999px;background:#f1f5f4;border:1px solid var(--border);font-size:.84rem;font-weight:700}
+    .setup h3{margin-top:0}
+    .field{margin:14px 0}
+    label{display:block;font-weight:750;margin-bottom:7px}
+    select,input[type="number"],input[type="text"]{
+      width:100%;padding:12px 13px;border-radius:12px;border:1px solid var(--border);
+      background:#fff;color:var(--text);outline:none
+    }
+    select:focus,input:focus{border-color:#2dd4bf;box-shadow:0 0 0 4px rgba(45,212,191,.16)}
+    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .toggle-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0}
+    .switch{position:relative;width:50px;height:28px}
+    .switch input{opacity:0;width:0;height:0}
+    .slider{position:absolute;inset:0;background:#cbd5e1;border-radius:99px;transition:.2s}
+    .slider:before{content:"";position:absolute;width:22px;height:22px;left:3px;top:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.2)}
+    .switch input:checked+.slider{background:var(--primary)}
+    .switch input:checked+.slider:before{transform:translateX(22px)}
+    .setup-actions{display:grid;grid-template-columns:1fr;gap:9px;margin-top:16px}
+    .source-note{font-size:.8rem;color:var(--muted);margin-top:12px;line-height:1.5}
+
+    .exam-layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:18px}
+    .sidebar{position:sticky;top:92px;height:fit-content}
+    .stats{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+    .stat{padding:12px;border-radius:13px;background:#f5f9f8;border:1px solid var(--border)}
+    .stat span{display:block;color:var(--muted);font-size:.76rem}
+    .stat strong{font-size:1.1rem}
+    .timer{font-variant-numeric:tabular-nums}
+    .timer.danger{color:var(--danger);animation:pulse 1s infinite}
+    @keyframes pulse{50%{opacity:.55}}
+    .palette{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:15px;max-height:330px;overflow:auto;padding-right:4px}
+    .qnav{
+      border:1px solid var(--border);border-radius:9px;background:#fff;min-height:36px;font-weight:800;color:var(--muted)
+    }
+    .qnav.current{outline:3px solid rgba(15,118,110,.18);border-color:var(--primary);color:var(--primary)}
+    .qnav.answered{background:#dff5f0;color:#075d55;border-color:#99e0d4}
+    .qnav.flagged{box-shadow:inset 0 -4px 0 var(--accent)}
+    .legend{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;font-size:.75rem;color:var(--muted)}
+    .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:4px}
+    .question-card{min-height:540px}
+    .question-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;border-bottom:1px solid var(--border);padding-bottom:15px}
+    .question-meta{display:flex;gap:7px;flex-wrap:wrap}
+    .tag{font-size:.76rem;font-weight:850;border-radius:999px;padding:6px 9px;background:#edf6f4;color:#0f766e}
+    .tag.gold{background:#fff2cc;color:#7c4a03}
+    .question-title{font-size:1.28rem;line-height:1.55;margin:24px 0 18px}
+    .question-title sup{font-size:.7em}
+    .options{display:grid;gap:11px}
+    .option{
+      display:flex;gap:12px;align-items:flex-start;padding:14px;border:1px solid var(--border);
+      border-radius:14px;background:#fff;transition:.15s
+    }
+    .option:hover{border-color:#79cfc3;background:#f7fffd}
+    .option.selected{border-color:var(--primary);background:#eaf8f5;box-shadow:0 0 0 3px rgba(15,118,110,.1)}
+    .option.correct{border-color:#22c55e;background:#ecfdf5}
+    .option.wrong{border-color:#ef4444;background:#fef2f2}
+    .option input{margin-top:3px}
+    .free-answer{max-width:560px}
+    .answer-hint{font-size:.82rem;color:var(--muted);margin-top:8px}
+    .feedback{margin-top:18px;padding:14px 16px;border-radius:14px;line-height:1.55}
+    .feedback.correct{background:#ecfdf5;border:1px solid #86efac;color:#166534}
+    .feedback.wrong{background:#fff1f2;border:1px solid #fda4af;color:#9f1239}
+    .solution{margin-top:8px;color:inherit}
+    .question-actions{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:28px;padding-top:18px;border-top:1px solid var(--border)}
+    .left-actions,.right-actions{display:flex;gap:9px;flex-wrap:wrap}
+
+    .results-hero{text-align:center;padding:28px}
+    .score-ring{
+      width:150px;height:150px;margin:10px auto 18px;border-radius:50%;display:grid;place-items:center;
+      background:conic-gradient(var(--primary) var(--score-angle),#e5e7eb 0);
+      position:relative
+    }
+    .score-ring:before{content:"";position:absolute;inset:13px;background:#fff;border-radius:50%}
+    .score-ring strong{position:relative;font-size:2rem}
+    .result-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}
+    .review-list{display:grid;gap:13px;margin-top:16px}
+    .review-item{padding:17px;border-radius:14px;border:1px solid var(--border);background:#fff}
+    .review-item.good{border-left:6px solid #22c55e}
+    .review-item.bad{border-left:6px solid #ef4444}
+    .review-item h4{margin:0 0 8px;line-height:1.45}
+    .review-item p{margin:5px 0;color:var(--muted);line-height:1.5}
+    details.formulas{margin-top:14px;border:1px solid var(--border);border-radius:14px;background:#fff}
+    details.formulas summary{cursor:pointer;padding:14px 16px;font-weight:850}
+    .formula-body{padding:0 16px 16px;display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+    .formula{padding:12px;border-radius:12px;background:#f5f9f8;border:1px solid var(--border)}
+    .formula strong{display:block;margin-bottom:5px}
+
+
+    /* PDF-based reviewer */
+    .reviewer-screen{display:grid;gap:18px}
+    .reviewer-hero{
+      background:
+        radial-gradient(circle at 92% 12%,rgba(245,158,11,.18),transparent 24%),
+        radial-gradient(circle at 8% 90%,rgba(45,212,191,.16),transparent 28%),#fff;
+    }
+    .reviewer-hero h2{font-size:clamp(2rem,5vw,3.6rem)}
+    .reviewer-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:18px}
+    .reviewer-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:18px}
+    .reviewer-summary{
+      padding:14px;border-radius:14px;border:1px solid var(--border);background:#f7fbfa
+    }
+    .reviewer-summary strong{display:block;color:var(--primary-2);margin-bottom:5px}
+    .lesson-card{padding:0;overflow:hidden}
+    .lesson-card>summary{
+      list-style:none;cursor:pointer;padding:19px 21px;font-size:1.08rem;font-weight:900;
+      background:linear-gradient(90deg,#effaf7,#fff);display:flex;justify-content:space-between;gap:12px;align-items:center
+    }
+    .lesson-card>summary::-webkit-details-marker{display:none}
+    .lesson-card>summary::after{content:'＋';color:var(--primary);font-size:1.2rem}
+    .lesson-card[open]>summary::after{content:'−'}
+    .lesson-content{padding:20px}
+    .review-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .review-block{
+      padding:15px;border-radius:14px;border:1px solid var(--border);background:#fff;line-height:1.58
+    }
+    .review-block h4{margin:0 0 8px;color:var(--primary-2)}
+    .review-block p{margin:6px 0;color:var(--muted)}
+    .review-block ul,.review-block ol{margin:8px 0 0;padding-left:21px;line-height:1.65}
+    .math-box{
+      font-family:'Cambria Math','Times New Roman',serif;font-size:1.08rem;text-align:center;
+      padding:12px;margin:9px 0;border-radius:12px;background:#f1f8f6;border:1px solid #cfe7e2
+    }
+    .worked-example{
+      margin-top:10px;padding:12px 14px;border-left:5px solid var(--primary);border-radius:10px;
+      background:#f7fbfa;line-height:1.65
+    }
+    .exam-tip{
+      padding:13px 15px;border-radius:13px;background:#fff7df;border:1px solid #f2d086;color:#6f4800;line-height:1.58
+    }
+    .quadrant-table,.study-table{width:100%;border-collapse:collapse;margin-top:10px}
+    .quadrant-table th,.quadrant-table td,.study-table th,.study-table td{
+      padding:10px;border:1px solid var(--border);text-align:left
+    }
+    .quadrant-table th,.study-table th{background:#eef7f5;color:var(--primary-2)}
+    .slope-types{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin-top:10px}
+    .slope-type{padding:12px;border:1px solid var(--border);border-radius:12px;text-align:center;background:#fff}
+    .slope-line{height:45px;position:relative;margin-bottom:7px}
+    .slope-line::before{content:'';position:absolute;width:52px;height:4px;background:var(--primary);left:50%;top:50%;transform-origin:center;border-radius:4px}
+    .slope-type.positive .slope-line::before{transform:translate(-50%,-50%) rotate(-35deg)}
+    .slope-type.negative .slope-line::before{transform:translate(-50%,-50%) rotate(35deg)}
+    .slope-type.zero .slope-line::before{transform:translate(-50%,-50%)}
+    .slope-type.undefined .slope-line::before{transform:translate(-50%,-50%) rotate(90deg)}
+    .formula-steps{counter-reset:step;display:grid;gap:8px;margin-top:10px}
+    .formula-step{counter-increment:step;padding:10px 12px 10px 42px;position:relative;border-radius:11px;background:#f6faf9;border:1px solid var(--border)}
+    .formula-step::before{content:counter(step);position:absolute;left:10px;top:9px;width:23px;height:23px;border-radius:50%;display:grid;place-items:center;background:var(--primary);color:#fff;font-size:.75rem;font-weight:900}
+    .source-page{font-size:.76rem;color:var(--muted);font-weight:700}
+    .reviewer-footer-card{text-align:center}
+
+    @media(max-width:860px){
+      .reviewer-summary-grid,.review-grid{grid-template-columns:1fr}
+      .slope-types{grid-template-columns:repeat(2,1fr)}
+    }
+    @media(max-width:600px){
+      .lesson-content{padding:15px}
+      .slope-types{grid-template-columns:1fr 1fr}
+      .quadrant-table,.study-table{font-size:.88rem}
+    }
+
+    .modal-backdrop{
+      position:fixed;inset:0;background:rgba(6,36,33,.58);z-index:99;display:grid;place-items:center;padding:18px
+    }
+    .modal{max-width:760px;width:100%;max-height:88vh;overflow:auto;background:#fff;border-radius:20px;padding:22px;box-shadow:0 30px 80px rgba(0,0,0,.3)}
+    .modal-head{display:flex;justify-content:space-between;gap:12px;align-items:center}
+    .modal h3{margin:0}
+    .icon-btn{border:none;background:#eef4f3;border-radius:10px;width:40px;height:40px;font-size:1.2rem}
+    footer{text-align:center;color:var(--muted);padding:28px 10px 10px;font-size:.85rem}
+
+    @media(max-width:860px){
+      .hero,.exam-layout{grid-template-columns:1fr}
+      .sidebar{position:static}
+      .palette{grid-template-columns:repeat(10,1fr);max-height:none}
+      .question-card{min-height:auto}
+    }
+    @media(max-width:600px){
+      .app-shell{padding:10px}
+      .topbar{border-radius:13px;padding:10px}
+      .brand small{display:none}
+      .hero-card,.card{padding:17px}
+      h2{font-size:2.35rem}
+      .grid-2,.result-grid,.formula-body{grid-template-columns:1fr}
+      .palette{grid-template-columns:repeat(7,1fr)}
+      .question-head,.question-actions{flex-direction:column}
+      .question-actions,.left-actions,.right-actions{width:100%}
+      .question-actions .btn{flex:1}
+      .top-actions .btn span{display:none}
+    }
+    @media print{
+      .topbar,.sidebar,.question-actions,.results-actions,footer{display:none!important}
+      body{background:#fff}
+      .app-shell{max-width:none}
+      .card{box-shadow:none}
+      .review-item{break-inside:avoid}
+    }
+  </style>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="logo">AG</div>
+        <div>
+          <h1>Analytic Geometry Exam Master</h1>
+          <small>High-probability reviewer and quiz app</small>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button class="btn btn-outline" id="reviewerBtn">📚 <span>Reviewer</span></button>
+        <button class="btn btn-outline" id="formulaBtn">📘 <span>Formula Sheet</span></button>
+        <button class="btn btn-outline hidden" id="homeBtn">⌂ <span>Home</span></button>
+      </div>
+    </header>
+
+    <main>
+      <section id="homeScreen" class="hero">
+        <article class="card hero-card">
+          <span class="eyebrow">★ Exam-focused question bank</span>
+          <h2>Study what is most likely to appear.</h2>
+          <p>
+            Practice coordinate planes, distance, midpoint, slope, equations of a line,
+            and equations of a circle using multiple-choice, true-or-false,
+            identification, and problem-solving questions.
+          </p>
+          <div class="scope">
+            <span class="chip">Coordinate Plane</span>
+            <span class="chip">Quadrants</span>
+            <span class="chip">Distance</span>
+            <span class="chip">Midpoint</span>
+            <span class="chip">Slope</span>
+            <span class="chip">Line Equations</span>
+            <span class="chip">Circle Equations</span>
+          </div>
+
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px">
+            <button class="btn btn-secondary" id="homeReviewerBtn">Open Complete Reviewer</button>
+          </div>
+
+          <details class="formulas">
+            <summary>What makes this exam-focused?</summary>
+            <div style="padding:0 16px 16px;color:var(--muted);line-height:1.6">
+              The bank emphasizes definitions, formulas, examples, and exercises found in
+              Lessons 1–3 of the uploaded material. Problems include the same skills and
+              number patterns used in the presentation.
+            </div>
+          </details>
+        </article>
+
+        <aside class="card setup">
+          <h3>Build Your Exam</h3>
+          <div class="field">
+            <label for="modeSelect">Study mode</label>
+            <select id="modeSelect">
+              <option value="exam">Exam Mode — answers shown after submission</option>
+              <option value="practice">Practice Mode — check each answer</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="typeSelect">Exam type</label>
+            <select id="typeSelect">
+              <option value="mixed">Mixed Exam</option>
+              <option value="mcq">Multiple Choice</option>
+              <option value="tf">True or False</option>
+              <option value="identification">Identification</option>
+              <option value="problem">Problem Solving</option>
+            </select>
+          </div>
+          <div class="grid-2">
+            <div class="field">
+              <label for="countSelect">Questions</label>
+              <select id="countSelect">
+                <option value="10">10</option>
+                <option value="20" selected>20</option>
+                <option value="30">30</option>
+                <option value="50">50</option>
+                <option value="all">All available</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="minutesSelect">Time limit</label>
+              <select id="minutesSelect">
+                <option value="0">No timer</option>
+                <option value="15">15 minutes</option>
+                <option value="30" selected>30 minutes</option>
+                <option value="45">45 minutes</option>
+                <option value="60">60 minutes</option>
+              </select>
+            </div>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <strong>Shuffle questions</strong>
+              <div class="answer-hint">Different order each attempt</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="shuffleQuestions" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="toggle-row">
+            <div>
+              <strong>Shuffle choices</strong>
+              <div class="answer-hint">For multiple-choice items</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="shuffleChoices" checked>
+              <span class="slider"></span>
+            </label>
+          </div>
+          <div class="setup-actions">
+            <button class="btn btn-primary" id="startBtn">Start Exam</button>
+            <button class="btn btn-secondary hidden" id="resumeBtn">Resume Saved Attempt</button>
+            <button class="btn btn-danger hidden" id="clearSavedBtn">Delete Saved Attempt</button>
+          </div>
+          <p class="source-note">
+            Coverage is limited to the uploaded “Analytic Geometry Basics” presentation:
+            Lessons 1–3 and their exercises.
+          </p>
+        </aside>
+      </section>
+
+
+      <section id="reviewerScreen" class="reviewer-screen hidden">
+        <article class="card reviewer-hero">
+          <span class="eyebrow">📘 PDF-Based Reviewer</span>
+          <h2>Analytic Geometry Basics Reviewer</h2>
+          <p style="color:var(--muted);max-width:850px;line-height:1.7">
+            This reviewer follows the three lessons, formulas, examples, diagrams, and exercises in the
+            attached presentation. Study the definitions first, memorize the formulas, and then copy the
+            worked-solution pattern before taking the quiz.
+          </p>
+          <div class="reviewer-summary-grid">
+            <div class="reviewer-summary"><strong>Lesson 1</strong>Coordinate plane, quadrants, abscissa, ordinate, and plotting points.</div>
+            <div class="reviewer-summary"><strong>Lesson 2</strong>Distance, midpoint, slope, and the four types of slope.</div>
+            <div class="reviewer-summary"><strong>Lesson 3</strong>Slope-intercept, point-slope, standard line form, and circle equations.</div>
+          </div>
+          <div class="reviewer-actions">
+            <button class="btn btn-primary" id="reviewerQuizBtn">Take the Quiz</button>
+            <button class="btn btn-secondary" id="reviewerFormulaBtn">Open Formula Sheet</button>
+          </div>
+        </article>
+
+        <details class="card lesson-card" open>
+          <summary><span>Lesson 1: Introduction to Analytic Geometry</span><span class="source-page">PDF pages 3-11</span></summary>
+          <div class="lesson-content">
+            <div class="review-grid">
+              <section class="review-block">
+                <h4>What is analytic geometry?</h4>
+                <p>
+                  The presentation describes analytic geometry as a branch of mathematics that processes
+                  geometric figures in a two-dimensional plane and studies their properties.
+                </p>
+                <div class="exam-tip"><strong>Likely exam focus:</strong> definition of analytic geometry and the parts of the coordinate plane.</div>
+              </section>
+
+              <section class="review-block">
+                <h4>Coordinate plane</h4>
+                <ul>
+                  <li>The <strong>x-axis</strong> is horizontal.</li>
+                  <li>The <strong>y-axis</strong> is vertical.</li>
+                  <li>The axes meet at the <strong>origin, O(0,0)</strong>.</li>
+                  <li>The axes divide the plane into <strong>four quadrants</strong>.</li>
+                  <li>A point is written as <strong>(x,y)</strong>.</li>
+                </ul>
+              </section>
+
+              <section class="review-block">
+                <h4>Coordinates of a point</h4>
+                <p><strong>Abscissa (x):</strong> the horizontal position or distance measured along the x-axis.</p>
+                <p><strong>Ordinate (y):</strong> the vertical position measured parallel to the y-axis.</p>
+                <div class="math-box">Point = (abscissa, ordinate) = (x, y)</div>
+                <div class="exam-tip"><strong>Memory trick:</strong> x comes first and moves horizontally; y comes second and moves vertically.</div>
+              </section>
+
+              <section class="review-block">
+                <h4>Signs in the four quadrants</h4>
+                <table class="quadrant-table">
+                  <thead><tr><th>Quadrant</th><th>x</th><th>y</th><th>Sign pair</th></tr></thead>
+                  <tbody>
+                    <tr><td>I</td><td>Positive</td><td>Positive</td><td>(+,+)</td></tr>
+                    <tr><td>II</td><td>Negative</td><td>Positive</td><td>(-,+)</td></tr>
+                    <tr><td>III</td><td>Negative</td><td>Negative</td><td>(-,-)</td></tr>
+                    <tr><td>IV</td><td>Positive</td><td>Negative</td><td>(+,-)</td></tr>
+                  </tbody>
+                </table>
+              </section>
+            </div>
+
+            <section class="review-block" style="margin-top:12px">
+              <h4>Examples from the presentation</h4>
+              <table class="study-table">
+                <thead><tr><th>Point</th><th>Sign pair</th><th>Location</th></tr></thead>
+                <tbody>
+                  <tr><td>A(2,4)</td><td>(+,+)</td><td>Quadrant I</td></tr>
+                  <tr><td>B(-3,1)</td><td>(-,+)</td><td>Quadrant II</td></tr>
+                  <tr><td>C(-1,-4)</td><td>(-,-)</td><td>Quadrant III</td></tr>
+                  <tr><td>D(5,-2)</td><td>(+,-)</td><td>Quadrant IV</td></tr>
+                </tbody>
+              </table>
+              <div class="worked-example">
+                <strong>PDF exercise points:</strong> A(5,-1) is in IV; B(-2,3) is in II;
+                C(1,5) is in I; and D(-4,-1) is in III.
+              </div>
+            </section>
+          </div>
+        </details>
+
+        <details class="card lesson-card">
+          <summary><span>Lesson 2: Distance, Midpoint, and Slope</span><span class="source-page">PDF pages 12-24</span></summary>
+          <div class="lesson-content">
+            <div class="review-grid">
+              <section class="review-block">
+                <h4>Distance between two points</h4>
+                <p>The distance is the length of the straight-line segment connecting two points.</p>
+                <div class="math-box">d = √[(x₂ - x₁)² + (y₂ - y₁)²]</div>
+                <div class="formula-steps">
+                  <div class="formula-step">Identify (x₁,y₁) and (x₂,y₂).</div>
+                  <div class="formula-step">Subtract the x-values and subtract the y-values.</div>
+                  <div class="formula-step">Square both differences, add, then take the square root.</div>
+                </div>
+                <div class="worked-example">
+                  <strong>PDF example: L(6,-2), K(-2,4)</strong><br>
+                  d = √[(-2-6)² + (4-(-2))²]<br>
+                  d = √[(-8)² + 6²] = √(64+36) = √100 = <strong>10 units</strong>
+                </div>
+              </section>
+
+              <section class="review-block">
+                <h4>Midpoint of a line segment</h4>
+                <p>The midpoint is exactly halfway between two endpoints and divides the segment into two equal parts.</p>
+                <div class="math-box">M = ((x₁+x₂)/2, (y₁+y₂)/2)</div>
+                <div class="formula-steps">
+                  <div class="formula-step">Add the two x-coordinates and divide by 2.</div>
+                  <div class="formula-step">Add the two y-coordinates and divide by 2.</div>
+                  <div class="formula-step">Write the result as an ordered pair.</div>
+                </div>
+                <div class="worked-example">
+                  <strong>PDF example: Q(3,5), S(7,9)</strong><br>
+                  M = ((3+7)/2, (5+9)/2) = (10/2,14/2) = <strong>(5,7)</strong>
+                </div>
+              </section>
+
+              <section class="review-block">
+                <h4>Slope of a line</h4>
+                <p>Slope measures the steepness and direction of a line. It is vertical change divided by horizontal change.</p>
+                <div class="math-box">m = rise/run = (y₂-y₁)/(x₂-x₁)</div>
+                <div class="worked-example">
+                  <strong>PDF example: (-3,-1), (3,3)</strong><br>
+                  m = [3-(-1)]/[3-(-3)] = 4/6 = <strong>2/3</strong>
+                </div>
+                <div class="exam-tip"><strong>Avoid this mistake:</strong> if you start with y₂-y₁ in the numerator, use x₂-x₁ in the denominator in the same order.</div>
+              </section>
+
+              <section class="review-block">
+                <h4>Four types of slope</h4>
+                <div class="slope-types">
+                  <div class="slope-type positive"><div class="slope-line"></div><strong>Positive</strong><div class="answer-hint">Rises left to right</div></div>
+                  <div class="slope-type negative"><div class="slope-line"></div><strong>Negative</strong><div class="answer-hint">Falls left to right</div></div>
+                  <div class="slope-type zero"><div class="slope-line"></div><strong>Zero</strong><div class="answer-hint">Horizontal line</div></div>
+                  <div class="slope-type undefined"><div class="slope-line"></div><strong>Undefined</strong><div class="answer-hint">Vertical line</div></div>
+                </div>
+              </section>
+            </div>
+
+            <section class="review-block" style="margin-top:12px">
+              <h4>Worked answers calculated from the PDF exercises on page 24</h4>
+              <table class="study-table">
+                <thead><tr><th>Given points</th><th>Required</th><th>Answer</th></tr></thead>
+                <tbody>
+                  <tr><td>A(2,3), B(8,11)</td><td>Distance</td><td>10</td></tr>
+                  <tr><td>A(-4,6), B(8,2)</td><td>Midpoint</td><td>(2,4)</td></tr>
+                  <tr><td>A(1,2), B(5,10)</td><td>Slope</td><td>2</td></tr>
+                  <tr><td>P(-3,-2), Q(5,4)</td><td>Distance; midpoint</td><td>10; (1,1)</td></tr>
+                  <tr><td>A(-2,1), B(6,9)</td><td>Distance; midpoint; slope</td><td>8√2; (2,5); 1</td></tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </details>
+
+        <details class="card lesson-card">
+          <summary><span>Lesson 3: Equations of Lines and Circles</span><span class="source-page">PDF pages 25-32</span></summary>
+          <div class="lesson-content">
+            <div class="review-grid">
+              <section class="review-block">
+                <h4>1. Slope-intercept form</h4>
+                <div class="math-box">y = mx + b</div>
+                <p><strong>m</strong> is the slope and <strong>b</strong> is the y-intercept.</p>
+                <p>This form is used when the slope and y-intercept are known.</p>
+                <div class="worked-example">
+                  <strong>PDF example: y=2x+1</strong><br>
+                  Slope: <strong>m=2</strong><br>
+                  y-intercept: <strong>(0,1)</strong>
+                </div>
+              </section>
+
+              <section class="review-block">
+                <h4>2. Point-slope form</h4>
+                <div class="math-box">y - y₁ = m(x - x₁)</div>
+                <p>Use this when the slope and one point on the line are given.</p>
+                <div class="worked-example">
+                  <strong>PDF example: slope 3 through (2,4)</strong><br>
+                  y-4 = 3(x-2)<br>
+                  y-4 = 3x-6<br>
+                  <strong>y = 3x-2</strong>
+                </div>
+              </section>
+
+              <section class="review-block">
+                <h4>3. Standard form</h4>
+                <div class="math-box">Ax + By = C</div>
+                <p>The slide identifies A, B, and C as constants and states that A and B cannot both be zero.</p>
+                <div class="worked-example">
+                  <strong>PDF example: 2x+3y=6</strong><br>
+                  A=2, B=3, and C=6.
+                </div>
+              </section>
+
+              <section class="review-block">
+                <h4>Choosing a line form</h4>
+                <table class="study-table">
+                  <thead><tr><th>Information given</th><th>Best form</th></tr></thead>
+                  <tbody>
+                    <tr><td>Slope and y-intercept</td><td>y=mx+b</td></tr>
+                    <tr><td>Slope and one point</td><td>y-y₁=m(x-x₁)</td></tr>
+                    <tr><td>Equation arranged with x- and y-terms</td><td>Ax+By=C</td></tr>
+                  </tbody>
+                </table>
+              </section>
+
+              <section class="review-block">
+                <h4>Standard equation of a circle</h4>
+                <div class="math-box">(x-h)² + (y-k)² = r²</div>
+                <p><strong>(h,k)</strong> is the center and <strong>r</strong> is the radius.</p>
+                <div class="worked-example">
+                  <strong>Identify center and radius:</strong><br>
+                  (x-3)²+(y+2)²=25<br>
+                  Center = <strong>(3,-2)</strong>; radius = <strong>5</strong>.
+                </div>
+                <div class="exam-tip"><strong>Sign warning:</strong> the signs inside the parentheses are opposite the center coordinates. For example, y+2 means k=-2.</div>
+              </section>
+
+              <section class="review-block">
+                <h4>Writing a circle equation</h4>
+                <div class="worked-example">
+                  <strong>Center (2,3), radius 4:</strong><br>
+                  (x-2)²+(y-3)²=4²<br>
+                  <strong>(x-2)²+(y-3)²=16</strong>
+                </div>
+                <div class="worked-example">
+                  <strong>Circle centered at the origin:</strong><br>
+                  x²+y²=r². If r=6, then <strong>x²+y²=36</strong>.
+                </div>
+              </section>
+            </div>
+
+            <section class="review-block" style="margin-top:12px">
+              <h4>Worked answers calculated from the PDF exercises on page 32</h4>
+              <table class="study-table">
+                <thead><tr><th>Exercise</th><th>Answer</th></tr></thead>
+                <tbody>
+                  <tr><td>Line with slope 2 through (3,1)</td><td>y=2x-5</td></tr>
+                  <tr><td>Line through (-1,2) and (3,6)</td><td>y=x+3</td></tr>
+                  <tr><td>Center and radius of (x+4)²+(y-2)²=36</td><td>Center (-4,2); radius 6</td></tr>
+                  <tr><td>Circle with center (5,-1), radius 3</td><td>(x-5)²+(y+1)²=9</td></tr>
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </details>
+
+        <article class="card reviewer-footer-card">
+          <h3 style="margin:0 0 7px">Fast final-exam checklist</h3>
+          <p style="color:var(--muted);margin:0 0 15px">
+            Memorize the quadrant signs and seven main formulas, then solve one example for each formula without looking.
+          </p>
+          <div class="scope" style="justify-content:center">
+            <span class="chip">(x,y)</span><span class="chip">Distance</span><span class="chip">Midpoint</span>
+            <span class="chip">Slope</span><span class="chip">y=mx+b</span><span class="chip">Point-Slope</span>
+            <span class="chip">Ax+By=C</span><span class="chip">Circle Form</span>
+          </div>
+        </article>
+      </section>
+
+      <section id="examScreen" class="exam-layout hidden">
+        <aside class="card sidebar">
+          <div class="stats">
+            <div class="stat"><span>Question</span><strong id="questionCounter">1/20</strong></div>
+            <div class="stat"><span>Answered</span><strong id="answeredCounter">0</strong></div>
+            <div class="stat"><span>Time</span><strong id="timer" class="timer">30:00</strong></div>
+            <div class="stat"><span>Flagged</span><strong id="flagCounter">0</strong></div>
+          </div>
+          <div id="palette" class="palette"></div>
+          <div class="legend">
+            <span><i style="background:#dff5f0"></i>Answered</span>
+            <span><i style="background:#fff;border-bottom:4px solid #f59e0b"></i>Flagged</span>
+          </div>
+          <button class="btn btn-primary" id="submitBtn" style="width:100%;margin-top:16px">Submit Exam</button>
+        </aside>
+
+        <article class="card question-card">
+          <div class="question-head">
+            <div class="question-meta">
+              <span class="tag" id="typeTag">Multiple Choice</span>
+              <span class="tag" id="categoryTag">Coordinate Plane</span>
+              <span class="tag gold">★ High Probability</span>
+            </div>
+            <button class="btn btn-warning" id="flagBtn">⚑ Flag</button>
+          </div>
+
+          <div id="questionTitle" class="question-title"></div>
+          <div id="answerArea"></div>
+          <div id="feedbackArea"></div>
+
+          <div class="question-actions">
+            <div class="left-actions">
+              <button class="btn btn-outline" id="prevBtn">← Previous</button>
+              <button class="btn btn-secondary hidden" id="checkBtn">Check Answer</button>
+            </div>
+            <div class="right-actions">
+              <button class="btn btn-outline" id="clearAnswerBtn">Clear</button>
+              <button class="btn btn-primary" id="nextBtn">Next →</button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="resultsScreen" class="hidden">
+        <div class="card results-hero">
+          <span class="eyebrow">Exam completed</span>
+          <h2 style="font-size:2.4rem">Your Result</h2>
+          <div class="score-ring" id="scoreRing" style="--score-angle:0deg">
+            <strong id="scorePercent">0%</strong>
+          </div>
+          <h3 id="scoreText">0 out of 0 correct</h3>
+          <p id="resultMessage" style="color:var(--muted)"></p>
+
+          <div class="result-grid">
+            <div class="stat"><span>Correct</span><strong id="correctStat">0</strong></div>
+            <div class="stat"><span>Incorrect</span><strong id="wrongStat">0</strong></div>
+            <div class="stat"><span>Unanswered</span><strong id="blankStat">0</strong></div>
+            <div class="stat"><span>Time Used</span><strong id="timeUsedStat">—</strong></div>
+          </div>
+
+          <div class="results-actions" style="display:flex;justify-content:center;gap:9px;flex-wrap:wrap">
+            <button class="btn btn-primary" id="retryBtn">Try Another Exam</button>
+            <button class="btn btn-secondary" id="reviewWrongBtn">Show Incorrect Only</button>
+            <button class="btn btn-outline" onclick="window.print()">Print Review</button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:18px">
+          <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap">
+            <div>
+              <h3 style="margin:0">Answer Review</h3>
+              <p style="margin:5px 0 0;color:var(--muted)">Correct answers and short solutions</p>
+            </div>
+            <select id="reviewFilter" style="width:auto">
+              <option value="all">All questions</option>
+              <option value="wrong">Incorrect and unanswered</option>
+              <option value="correct">Correct only</option>
+            </select>
+          </div>
+          <div id="reviewList" class="review-list"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer>Developed by RekzBanz • Analytic Geometry Exam Master</footer>
+  </div>
+
+  <div id="formulaModal" class="modal-backdrop hidden">
+    <div class="modal">
+      <div class="modal-head">
+        <div>
+          <h3>Essential Formula Sheet</h3>
+          <p style="margin:4px 0 0;color:var(--muted)">Memorize these before the exam.</p>
+        </div>
+        <button class="icon-btn" id="closeFormulaBtn">✕</button>
+      </div>
+      <div class="formula-body" style="margin-top:18px">
+        <div class="formula"><strong>Distance</strong>d = √[(x₂ − x₁)² + (y₂ − y₁)²]</div>
+        <div class="formula"><strong>Midpoint</strong>M = ((x₁ + x₂)/2, (y₁ + y₂)/2)</div>
+        <div class="formula"><strong>Slope</strong>m = (y₂ − y₁)/(x₂ − x₁) = rise/run</div>
+        <div class="formula"><strong>Slope-Intercept</strong>y = mx + b</div>
+        <div class="formula"><strong>Point-Slope</strong>y − y₁ = m(x − x₁)</div>
+        <div class="formula"><strong>Standard Line Form</strong>Ax + By = C</div>
+        <div class="formula"><strong>Circle</strong>(x − h)² + (y − k)² = r²</div>
+        <div class="formula"><strong>Circle at Origin</strong>x² + y² = r²</div>
+        <div class="formula"><strong>Quadrants</strong>I (+,+), II (−,+), III (−,−), IV (+,−)</div>
+        <div class="formula"><strong>Special Slopes</strong>Horizontal = 0; Vertical = undefined</div>
+      </div>
+    </div>
+  </div>
+
+<script>
+(() => {
+  "use strict";
+
+  const questionBank = [
+    {id:1,type:"mcq",category:"Introduction",q:"What is analytic geometry mainly used for?",options:["Processing geometric figures in a two-dimensional plane","Studying only three-dimensional solids","Finding only areas of triangles","Working only with statistics"],answer:"Processing geometric figures in a two-dimensional plane",explanation:"The presentation defines analytic geometry as a branch of mathematics used to process geometric figures in a two-dimensional plane and study their properties."},
+    {id:2,type:"tf",category:"Coordinate Plane",q:"A coordinate plane is a two-dimensional system used to locate points.",answer:"True",explanation:"The coordinate plane uses two axes to locate points."},
+    {id:3,type:"identification",category:"Coordinate Plane",q:"What is the horizontal axis called?",accepted:["x-axis","x axis","xaxis"],answerDisplay:"x-axis",hint:"Write the name of the axis.",explanation:"The horizontal axis is the x-axis."},
+    {id:4,type:"identification",category:"Coordinate Plane",q:"What is the vertical axis called?",accepted:["y-axis","y axis","yaxis"],answerDisplay:"y-axis",hint:"Write the name of the axis.",explanation:"The vertical axis is the y-axis."},
+    {id:5,type:"mcq",category:"Coordinate Plane",q:"At what point do the x-axis and y-axis intersect?",options:["(0, 0)","(1, 1)","(0, 1)","(1, 0)"],answer:"(0, 0)",explanation:"The two axes intersect at the origin, O(0,0)."},
+    {id:6,type:"identification",category:"Coordinate Plane",q:"What is the point (0,0) called?",accepted:["origin","the origin"],answerDisplay:"origin",hint:"One word.",explanation:"The point where the axes intersect is the origin."},
+    {id:7,type:"mcq",category:"Coordinate Plane",q:"How many quadrants divide the coordinate plane?",options:["2","3","4","5"],answer:"4",explanation:"The x-axis and y-axis divide the plane into four quadrants."},
+    {id:8,type:"mcq",category:"Coordinates",q:"A point on the coordinate plane is normally written as:",options:["(x, y)","(y, x)","x + y","x/y"],answer:"(x, y)",explanation:"The first coordinate is x and the second coordinate is y."},
+    {id:9,type:"identification",category:"Coordinates",q:"What is the x-coordinate of a point called?",accepted:["abscissa"],answerDisplay:"abscissa",hint:"It measures horizontal position.",explanation:"The x-coordinate is called the abscissa."},
+    {id:10,type:"identification",category:"Coordinates",q:"What is the y-coordinate of a point called?",accepted:["ordinate"],answerDisplay:"ordinate",hint:"It measures vertical position.",explanation:"The y-coordinate is called the ordinate."},
+    {id:11,type:"tf",category:"Coordinate Plane",q:"Points to the right of the origin have positive x-coordinates.",answer:"True",explanation:"The positive x-axis is to the right of the origin."},
+    {id:12,type:"tf",category:"Coordinate Plane",q:"Points below the origin have positive y-coordinates.",answer:"False",explanation:"Below the origin is the negative y-axis."},
+    {id:13,type:"mcq",category:"Quadrants",q:"Which sign pair belongs to Quadrant I?",options:["(+,+)","(-,+)","(-,-)","(+,-)"],answer:"(+,+)",explanation:"Both x and y are positive in Quadrant I."},
+    {id:14,type:"mcq",category:"Quadrants",q:"Which sign pair belongs to Quadrant II?",options:["(+,+)","(-,+)","(-,-)","(+,-)"],answer:"(-,+)",explanation:"x is negative and y is positive in Quadrant II."},
+    {id:15,type:"mcq",category:"Quadrants",q:"Which sign pair belongs to Quadrant III?",options:["(+,+)","(-,+)","(-,-)","(+,-)"],answer:"(-,-)",explanation:"Both x and y are negative in Quadrant III."},
+    {id:16,type:"mcq",category:"Quadrants",q:"Which sign pair belongs to Quadrant IV?",options:["(+,+)","(-,+)","(-,-)","(+,-)"],answer:"(+,-)",explanation:"x is positive and y is negative in Quadrant IV."},
+    {id:17,type:"mcq",category:"Quadrants",q:"In which quadrant is A(2,4)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant I",explanation:"Both coordinates are positive."},
+    {id:18,type:"mcq",category:"Quadrants",q:"In which quadrant is B(-3,1)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant II",explanation:"x is negative and y is positive."},
+    {id:19,type:"mcq",category:"Quadrants",q:"In which quadrant is C(-1,-4)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant III",explanation:"Both coordinates are negative."},
+    {id:20,type:"mcq",category:"Quadrants",q:"In which quadrant is D(5,-2)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant IV",explanation:"x is positive and y is negative."},
+    {id:21,type:"mcq",category:"Quadrants",q:"In which quadrant is the exercise point A(5,-1)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant IV",explanation:"The sign pair is (+,-)."},
+    {id:22,type:"mcq",category:"Quadrants",q:"In which quadrant is the exercise point B(-2,3)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant II",explanation:"The sign pair is (-,+)."},
+    {id:23,type:"mcq",category:"Quadrants",q:"In which quadrant is the exercise point C(1,5)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant I",explanation:"The sign pair is (+,+)."},
+    {id:24,type:"mcq",category:"Quadrants",q:"In which quadrant is the exercise point D(-4,-1)?",options:["Quadrant I","Quadrant II","Quadrant III","Quadrant IV"],answer:"Quadrant III",explanation:"The sign pair is (-,-)."},
+
+    {id:25,type:"mcq",category:"Distance",q:"Which is the distance formula between (x₁,y₁) and (x₂,y₂)?",options:["√[(x₂−x₁)²+(y₂−y₁)²]","(x₁+x₂)/2","(y₂−y₁)/(x₂−x₁)","y=mx+b"],answer:"√[(x₂−x₁)²+(y₂−y₁)²]",explanation:"Distance is found using the Pythagorean relationship between horizontal and vertical changes."},
+    {id:26,type:"tf",category:"Distance",q:"The distance between two points is the length of the straight-line segment connecting them.",answer:"True",explanation:"That is the definition given in the lesson."},
+    {id:27,type:"problem",category:"Distance",q:"Find the distance between L(6,-2) and K(-2,4).",accepted:["10","10 units","10units"],answerDisplay:"10 units",hint:"Use d = √[(x₂−x₁)²+(y₂−y₁)²].",explanation:"d = √[(-2−6)² + (4−(-2))²] = √[(-8)²+6²] = √100 = 10 units."},
+    {id:28,type:"problem",category:"Distance",q:"Find the distance between A(2,3) and B(8,11).",accepted:["10","10 units","10units"],answerDisplay:"10 units",hint:"Subtract corresponding coordinates.",explanation:"d = √[(8−2)²+(11−3)²] = √(36+64) = √100 = 10 units."},
+    {id:29,type:"problem",category:"Distance",q:"Find the distance between P(-3,-2) and Q(5,4).",accepted:["10","10 units","10units"],answerDisplay:"10 units",hint:"Calculate Δx and Δy first.",explanation:"Δx=8 and Δy=6, so d=√(8²+6²)=√100=10 units."},
+    {id:30,type:"problem",category:"Distance",q:"Find the exact distance between A(-2,1) and B(6,9).",accepted:["8sqrt2","8√2","sqrt128","√128","8 sqrt 2","8 units sqrt2"],answerDisplay:"8√2 units",hint:"Leave the answer in simplest radical form.",explanation:"d=√[(6−(-2))²+(9−1)²]=√(8²+8²)=√128=8√2 units."},
+
+    {id:31,type:"mcq",category:"Midpoint",q:"What does the midpoint of a line segment do?",options:["Divides it into two equal parts","Makes the segment twice as long","Changes its slope to zero","Moves it to the origin"],answer:"Divides it into two equal parts",explanation:"The midpoint is exactly halfway between the endpoints."},
+    {id:32,type:"mcq",category:"Midpoint",q:"Which is the midpoint formula?",options:["((x₁+x₂)/2,(y₁+y₂)/2)","√[(x₂−x₁)²+(y₂−y₁)²]","(y₂−y₁)/(x₂−x₁)","Ax+By=C"],answer:"((x₁+x₂)/2,(y₁+y₂)/2)",explanation:"Average the x-coordinates and average the y-coordinates."},
+    {id:33,type:"problem",category:"Midpoint",q:"Find the midpoint of Q(3,5) and S(7,9).",accepted:["5,7","(5,7)","5 7"],answerDisplay:"(5,7)",hint:"Average the x-values and y-values.",explanation:"M=((3+7)/2,(5+9)/2)=(10/2,14/2)=(5,7)."},
+    {id:34,type:"problem",category:"Midpoint",q:"Find the midpoint of A(-4,6) and B(8,2).",accepted:["2,4","(2,4)","2 4"],answerDisplay:"(2,4)",hint:"Average each pair of coordinates.",explanation:"M=((-4+8)/2,(6+2)/2)=(4/2,8/2)=(2,4)."},
+    {id:35,type:"problem",category:"Midpoint",q:"Find the midpoint of P(-3,-2) and Q(5,4).",accepted:["1,1","(1,1)","1 1"],answerDisplay:"(1,1)",hint:"Use the midpoint formula.",explanation:"M=((-3+5)/2,(-2+4)/2)=(2/2,2/2)=(1,1)."},
+    {id:36,type:"problem",category:"Midpoint",q:"Find the midpoint of A(-2,1) and B(6,9).",accepted:["2,5","(2,5)","2 5"],answerDisplay:"(2,5)",hint:"Average the coordinates.",explanation:"M=((-2+6)/2,(1+9)/2)=(4/2,10/2)=(2,5)."},
+
+    {id:37,type:"identification",category:"Slope",q:"The slope is the ratio of vertical change to horizontal change. This is also called _____ over _____.",accepted:["rise over run","rise/run"],answerDisplay:"rise over run",hint:"Two words joined by “over”.",explanation:"Slope = rise/run."},
+    {id:38,type:"mcq",category:"Slope",q:"Which is the slope formula?",options:["(y₂−y₁)/(x₂−x₁)","(x₁+x₂)/2","√[(x₂−x₁)²+(y₂−y₁)²]","(x−h)²+(y−k)²=r²"],answer:"(y₂−y₁)/(x₂−x₁)",explanation:"Slope is vertical change divided by horizontal change."},
+    {id:39,type:"problem",category:"Slope",q:"Find the slope through (-3,-1) and (3,3).",accepted:["2/3","0.6666667","0.6667"],answerDisplay:"2/3",hint:"m=(y₂−y₁)/(x₂−x₁).",explanation:"m=(3−(-1))/(3−(-3))=4/6=2/3."},
+    {id:40,type:"problem",category:"Slope",q:"Find the slope through A(1,2) and B(5,10).",accepted:["2","2/1"],answerDisplay:"2",hint:"Subtract y-values, then x-values in the same order.",explanation:"m=(10−2)/(5−1)=8/4=2."},
+    {id:41,type:"problem",category:"Slope",q:"Find the slope through P(-3,-2) and Q(5,4).",accepted:["3/4","0.75"],answerDisplay:"3/4",hint:"Keep the subtraction order consistent.",explanation:"m=(4−(-2))/(5−(-3))=6/8=3/4."},
+    {id:42,type:"problem",category:"Slope",q:"Find the slope through A(-2,1) and B(6,9).",accepted:["1","1/1"],answerDisplay:"1",hint:"Use rise over run.",explanation:"m=(9−1)/(6−(-2))=8/8=1."},
+    {id:43,type:"mcq",category:"Slope",q:"A line that rises from left to right has what type of slope?",options:["Positive","Negative","Zero","Undefined"],answer:"Positive",explanation:"A rising line has a positive slope."},
+    {id:44,type:"mcq",category:"Slope",q:"A line that falls from left to right has what type of slope?",options:["Positive","Negative","Zero","Undefined"],answer:"Negative",explanation:"A falling line has a negative slope."},
+    {id:45,type:"mcq",category:"Slope",q:"What is the slope of a horizontal line?",options:["0","1","-1","Undefined"],answer:"0",explanation:"A horizontal line has no vertical change, so rise=0."},
+    {id:46,type:"mcq",category:"Slope",q:"What is the slope of a vertical line?",options:["0","1","-1","Undefined"],answer:"Undefined",explanation:"A vertical line has zero horizontal change, causing division by zero."},
+    {id:47,type:"tf",category:"Slope",q:"Slope measures both the steepness and direction of a line.",answer:"True",explanation:"This is the definition stated in the lesson."},
+
+    {id:48,type:"mcq",category:"Line Equations",q:"Which is the slope-intercept form of a line?",options:["y=mx+b","y−y₁=m(x−x₁)","Ax+By=C","(x−h)²+(y−k)²=r²"],answer:"y=mx+b",explanation:"Slope-intercept form is y=mx+b."},
+    {id:49,type:"identification",category:"Line Equations",q:"In y=mx+b, what does m represent?",accepted:["slope","the slope"],answerDisplay:"slope",hint:"It measures steepness.",explanation:"m is the slope."},
+    {id:50,type:"identification",category:"Line Equations",q:"In y=mx+b, what does b represent?",accepted:["y-intercept","y intercept","the y-intercept","the y intercept"],answerDisplay:"y-intercept",hint:"It is where the line crosses the y-axis.",explanation:"b is the y-intercept."},
+    {id:51,type:"mcq",category:"Line Equations",q:"For y=2x+1, what is the slope?",options:["2","1","-2","(0,1)"],answer:"2",explanation:"The coefficient of x is the slope."},
+    {id:52,type:"mcq",category:"Line Equations",q:"For y=2x+1, what is the y-intercept as a point?",options:["(0,1)","(1,0)","(2,1)","(0,2)"],answer:"(0,1)",explanation:"Set x=0; then y=1."},
+    {id:53,type:"mcq",category:"Line Equations",q:"Which is the point-slope form?",options:["y−y₁=m(x−x₁)","y=mx+b","Ax+By=C","x²+y²=r²"],answer:"y−y₁=m(x−x₁)",explanation:"Point-slope form uses one point and the slope."},
+    {id:54,type:"tf",category:"Line Equations",q:"Point-slope form is useful when the slope and one point on the line are given.",answer:"True",explanation:"That is the stated use of point-slope form."},
+    {id:55,type:"problem",category:"Line Equations",q:"Find the equation of the line with slope 3 passing through (2,4). Give the answer in slope-intercept form.",accepted:["y=3x-2","y = 3x - 2"],answerDisplay:"y=3x−2",hint:"Start with y−4=3(x−2).",explanation:"y−4=3(x−2) → y−4=3x−6 → y=3x−2."},
+    {id:56,type:"mcq",category:"Line Equations",q:"Which is the standard form of a line?",options:["Ax+By=C","y=mx+b","y−y₁=m(x−x₁)","x²+y²=r²"],answer:"Ax+By=C",explanation:"The presentation gives Ax+By=C as standard form."},
+    {id:57,type:"mcq",category:"Line Equations",q:"In 2x+3y=6, what are A, B, and C?",options:["A=2, B=3, C=6","A=3, B=2, C=6","A=2, B=6, C=3","A=6, B=3, C=2"],answer:"A=2, B=3, C=6",explanation:"Match coefficients and constant with Ax+By=C."},
+    {id:58,type:"problem",category:"Line Equations",q:"Write the equation of the line with slope 2 passing through (3,1). Give slope-intercept form.",accepted:["y=2x-5","y = 2x - 5"],answerDisplay:"y=2x−5",hint:"Use y−1=2(x−3).",explanation:"y−1=2x−6, so y=2x−5."},
+    {id:59,type:"problem",category:"Line Equations",q:"Find the equation of the line through (-1,2) and (3,6). Give slope-intercept form.",accepted:["y=x+3","y = x + 3","y=1x+3"],answerDisplay:"y=x+3",hint:"First find the slope.",explanation:"m=(6−2)/(3−(-1))=4/4=1. Then y−2=1(x+1), giving y=x+3."},
+
+    {id:60,type:"mcq",category:"Circle Equations",q:"Which is the standard form of a circle?",options:["(x−h)²+(y−k)²=r²","y=mx+b","Ax+By=C","(y₂−y₁)/(x₂−x₁)"],answer:"(x−h)²+(y−k)²=r²",explanation:"The center is (h,k) and radius is r."},
+    {id:61,type:"identification",category:"Circle Equations",q:"In (x−h)²+(y−k)²=r², what point is represented by (h,k)?",accepted:["center","the center"],answerDisplay:"center",hint:"It is the middle of the circle.",explanation:"(h,k) is the center."},
+    {id:62,type:"identification",category:"Circle Equations",q:"In (x−h)²+(y−k)²=r², what does r represent?",accepted:["radius","the radius"],answerDisplay:"radius",hint:"Distance from center to the circle.",explanation:"r is the radius."},
+    {id:63,type:"problem",category:"Circle Equations",q:"Identify the center of (x−3)²+(y+2)²=25.",accepted:["3,-2","(3,-2)","3 -2"],answerDisplay:"(3,−2)",hint:"Rewrite y+2 as y−(−2).",explanation:"x−3 gives h=3; y+2=y−(−2), so k=−2."},
+    {id:64,type:"problem",category:"Circle Equations",q:"Find the radius of (x−3)²+(y+2)²=25.",accepted:["5","5 units","5units"],answerDisplay:"5",hint:"r²=25.",explanation:"r=√25=5."},
+    {id:65,type:"problem",category:"Circle Equations",q:"Write the equation of a circle with center (2,3) and radius 4.",accepted:["(x-2)^2+(y-3)^2=16","(x−2)²+(y−3)²=16"],answerDisplay:"(x−2)²+(y−3)²=16",hint:"Substitute h=2, k=3, and r²=16.",explanation:"Using (x−h)²+(y−k)²=r² gives (x−2)²+(y−3)²=16."},
+    {id:66,type:"mcq",category:"Circle Equations",q:"What is the equation of a circle centered at the origin?",options:["x²+y²=r²","(x−h)²+(y−k)²=r","y=mx+b","Ax+By=C"],answer:"x²+y²=r²",explanation:"When h=0 and k=0, the standard equation becomes x²+y²=r²."},
+    {id:67,type:"problem",category:"Circle Equations",q:"Write the equation of a circle centered at (0,0) with radius 6.",accepted:["x^2+y^2=36","x²+y²=36"],answerDisplay:"x²+y²=36",hint:"Use x²+y²=r².",explanation:"r²=6²=36, so x²+y²=36."},
+    {id:68,type:"problem",category:"Circle Equations",q:"Identify the center of (x+4)²+(y−2)²=36.",accepted:["-4,2","(-4,2)","-4 2"],answerDisplay:"(−4,2)",hint:"x+4 means x−(−4).",explanation:"h=−4 and k=2, so the center is (−4,2)."},
+    {id:69,type:"problem",category:"Circle Equations",q:"Find the radius of (x+4)²+(y−2)²=36.",accepted:["6","6 units","6units"],answerDisplay:"6",hint:"r²=36.",explanation:"r=√36=6."},
+    {id:70,type:"problem",category:"Circle Equations",q:"Write the equation of a circle with center (5,-1) and radius 3.",accepted:["(x-5)^2+(y+1)^2=9","(x−5)²+(y+1)²=9"],answerDisplay:"(x−5)²+(y+1)²=9",hint:"Remember that y−(−1)=y+1.",explanation:"Substitute h=5, k=−1, and r²=9: (x−5)²+(y+1)²=9."}
+  ];
+
+  const els = {
+    homeScreen: document.getElementById("homeScreen"),
+    reviewerScreen: document.getElementById("reviewerScreen"),
+    examScreen: document.getElementById("examScreen"),
+    resultsScreen: document.getElementById("resultsScreen"),
+    modeSelect: document.getElementById("modeSelect"),
+    typeSelect: document.getElementById("typeSelect"),
+    countSelect: document.getElementById("countSelect"),
+    minutesSelect: document.getElementById("minutesSelect"),
+    shuffleQuestions: document.getElementById("shuffleQuestions"),
+    shuffleChoices: document.getElementById("shuffleChoices"),
+    startBtn: document.getElementById("startBtn"),
+    resumeBtn: document.getElementById("resumeBtn"),
+    clearSavedBtn: document.getElementById("clearSavedBtn"),
+    homeBtn: document.getElementById("homeBtn"),
+    reviewerBtn: document.getElementById("reviewerBtn"),
+    homeReviewerBtn: document.getElementById("homeReviewerBtn"),
+    reviewerQuizBtn: document.getElementById("reviewerQuizBtn"),
+    reviewerFormulaBtn: document.getElementById("reviewerFormulaBtn"),
+    formulaBtn: document.getElementById("formulaBtn"),
+    formulaModal: document.getElementById("formulaModal"),
+    closeFormulaBtn: document.getElementById("closeFormulaBtn"),
+    questionCounter: document.getElementById("questionCounter"),
+    answeredCounter: document.getElementById("answeredCounter"),
+    flagCounter: document.getElementById("flagCounter"),
+    timer: document.getElementById("timer"),
+    palette: document.getElementById("palette"),
+    submitBtn: document.getElementById("submitBtn"),
+    typeTag: document.getElementById("typeTag"),
+    categoryTag: document.getElementById("categoryTag"),
+    flagBtn: document.getElementById("flagBtn"),
+    questionTitle: document.getElementById("questionTitle"),
+    answerArea: document.getElementById("answerArea"),
+    feedbackArea: document.getElementById("feedbackArea"),
+    prevBtn: document.getElementById("prevBtn"),
+    nextBtn: document.getElementById("nextBtn"),
+    checkBtn: document.getElementById("checkBtn"),
+    clearAnswerBtn: document.getElementById("clearAnswerBtn"),
+    scoreRing: document.getElementById("scoreRing"),
+    scorePercent: document.getElementById("scorePercent"),
+    scoreText: document.getElementById("scoreText"),
+    resultMessage: document.getElementById("resultMessage"),
+    correctStat: document.getElementById("correctStat"),
+    wrongStat: document.getElementById("wrongStat"),
+    blankStat: document.getElementById("blankStat"),
+    timeUsedStat: document.getElementById("timeUsedStat"),
+    retryBtn: document.getElementById("retryBtn"),
+    reviewWrongBtn: document.getElementById("reviewWrongBtn"),
+    reviewFilter: document.getElementById("reviewFilter"),
+    reviewList: document.getElementById("reviewList")
+  };
+
+  let state = {
+    mode:"exam", questions:[], current:0, answers:{}, flagged:{}, checked:{},
+    startTimestamp:null, remainingSeconds:0, totalSeconds:0, timerId:null, submitted:false
+  };
+
+  function shuffle(arr){
+    const copy=[...arr];
+    for(let i=copy.length-1;i>0;i--){
+      const j=Math.floor(Math.random()*(i+1));
+      [copy[i],copy[j]]=[copy[j],copy[i]];
+    }
+    return copy;
+  }
+
+  function normalize(value){
+    return String(value ?? "")
+      .toLowerCase()
+      .trim()
+      .replace(/[−–—]/g,"-")
+      .replace(/²/g,"^2")
+      .replace(/√/g,"sqrt")
+      .replace(/\bunits?\b/g,"")
+      .replace(/[()\[\]{}]/g,"")
+      .replace(/\s+/g,"")
+      .replace(/,/g,",");
+  }
+
+  function isCorrect(q, value){
+    if(value === undefined || value === null || String(value).trim()==="") return false;
+    if(q.type==="mcq" || q.type==="tf") return value===q.answer;
+    return (q.accepted || []).some(a => normalize(a)===normalize(value));
+  }
+
+  function typeLabel(type){
+    return ({mcq:"Multiple Choice",tf:"True or False",identification:"Identification",problem:"Problem Solving"})[type] || type;
+  }
+
+  function prepareQuestions(){
+    const type=els.typeSelect.value;
+    let pool = type==="mixed" ? [...questionBank] : questionBank.filter(q=>q.type===type);
+    if(els.shuffleQuestions.checked) pool=shuffle(pool);
+    const count=els.countSelect.value==="all" ? pool.length : Math.min(Number(els.countSelect.value),pool.length);
+    pool=pool.slice(0,count).map(q=>{
+      const copy={...q};
+      if(copy.type==="mcq" && els.shuffleChoices.checked) copy.options=shuffle(copy.options);
+      if(copy.type==="tf") copy.options=["True","False"];
+      return copy;
+    });
+    return pool;
+  }
+
+  function startExam(){
+    const questions=prepareQuestions();
+    const minutes=Number(els.minutesSelect.value);
+    state={
+      mode:els.modeSelect.value,
+      questions,
+      current:0,
+      answers:{},
+      flagged:{},
+      checked:{},
+      startTimestamp:Date.now(),
+      remainingSeconds:minutes*60,
+      totalSeconds:minutes*60,
+      timerId:null,
+      submitted:false
+    };
+    showScreen("exam");
+    els.checkBtn.classList.toggle("hidden",state.mode!=="practice");
+    buildPalette();
+    renderQuestion();
+    startTimer();
+    saveSession();
+  }
+
+  function showScreen(which){
+    els.homeScreen.classList.toggle("hidden",which!=="home");
+    els.reviewerScreen.classList.toggle("hidden",which!=="reviewer");
+    els.examScreen.classList.toggle("hidden",which!=="exam");
+    els.resultsScreen.classList.toggle("hidden",which!=="results");
+    els.homeBtn.classList.toggle("hidden",which==="home");
+    window.scrollTo({top:0,behavior:"smooth"});
+  }
+
+  function renderQuestion(){
+    const q=state.questions[state.current];
+    if(!q) return;
+    els.questionCounter.textContent=`${state.current+1}/${state.questions.length}`;
+    els.typeTag.textContent=typeLabel(q.type);
+    els.categoryTag.textContent=q.category;
+    els.questionTitle.innerHTML=q.q;
+    els.feedbackArea.innerHTML="";
+    els.flagBtn.textContent=state.flagged[q.id] ? "⚑ Flagged" : "⚐ Flag";
+    els.flagBtn.classList.toggle("btn-warning",!state.flagged[q.id]);
+    els.flagBtn.classList.toggle("btn-danger",!!state.flagged[q.id]);
+    els.prevBtn.disabled=state.current===0;
+    els.nextBtn.textContent=state.current===state.questions.length-1 ? "Finish →" : "Next →";
+
+    if(q.type==="mcq" || q.type==="tf"){
+      const opts=q.type==="tf" ? ["True","False"] : q.options;
+      els.answerArea.innerHTML=`<div class="options">${opts.map((opt,i)=>`
+        <label class="option ${state.answers[q.id]===opt?"selected":""}" data-value="${escapeAttr(opt)}">
+          <input type="radio" name="answer" value="${escapeAttr(opt)}" ${state.answers[q.id]===opt?"checked":""}>
+          <strong>${String.fromCharCode(65+i)}.</strong>
+          <span>${opt}</span>
+        </label>`).join("")}</div>`;
+      els.answerArea.querySelectorAll(".option").forEach(label=>{
+        label.addEventListener("click",()=>{
+          const val=label.dataset.value;
+          state.answers[q.id]=val;
+          els.answerArea.querySelectorAll(".option").forEach(x=>x.classList.toggle("selected",x===label));
+          updateStats();saveSession();
+          if(state.mode==="practice" && state.checked[q.id]) showPracticeFeedback(q);
+        });
+      });
+    } else {
+      const val=state.answers[q.id] ?? "";
+      els.answerArea.innerHTML=`
+        <div class="free-answer">
+          <input type="text" id="freeInput" autocomplete="off" placeholder="Type your answer here" value="${escapeAttr(val)}">
+          <div class="answer-hint">${q.hint || "Enter your final answer."}</div>
+        </div>`;
+      const input=document.getElementById("freeInput");
+      input.addEventListener("input",()=>{
+        state.answers[q.id]=input.value;
+        updateStats();saveSession();
+        if(state.mode==="practice" && state.checked[q.id]) showPracticeFeedback(q);
+      });
+      setTimeout(()=>input.focus(),50);
+    }
+
+    if(state.mode==="practice" && state.checked[q.id]) showPracticeFeedback(q);
+    updateStats();
+    updatePalette();
+  }
+
+  function escapeAttr(s){
+    return String(s).replace(/&/g,"&amp;").replace(/"/g,"&quot;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  }
+
+  function buildPalette(){
+    els.palette.innerHTML=state.questions.map((q,i)=>`<button class="qnav" data-index="${i}">${i+1}</button>`).join("");
+    els.palette.querySelectorAll(".qnav").forEach(btn=>{
+      btn.addEventListener("click",()=>{state.current=Number(btn.dataset.index);renderQuestion();saveSession();});
+    });
+    updatePalette();
+  }
+
+  function updatePalette(){
+    els.palette.querySelectorAll(".qnav").forEach((btn,i)=>{
+      const q=state.questions[i];
+      const val=state.answers[q.id];
+      btn.classList.toggle("current",i===state.current);
+      btn.classList.toggle("answered",val!==undefined && String(val).trim()!=="");
+      btn.classList.toggle("flagged",!!state.flagged[q.id]);
+    });
+  }
+
+  function updateStats(){
+    const answered=state.questions.filter(q=>state.answers[q.id]!==undefined && String(state.answers[q.id]).trim()!=="").length;
+    const flagged=state.questions.filter(q=>state.flagged[q.id]).length;
+    els.answeredCounter.textContent=answered;
+    els.flagCounter.textContent=flagged;
+    updatePalette();
+  }
+
+  function nextQuestion(){
+    if(state.current<state.questions.length-1){
+      state.current++;renderQuestion();saveSession();
+    }else{
+      if(confirm("You reached the last question. Submit the exam now?")) submitExam();
+    }
+  }
+
+  function checkCurrent(){
+    const q=state.questions[state.current];
+    const val=state.answers[q.id];
+    if(val===undefined || String(val).trim()===""){
+      alert("Please answer the question first.");
+      return;
+    }
+    state.checked[q.id]=true;
+    showPracticeFeedback(q);
+    saveSession();
+  }
+
+  function showPracticeFeedback(q){
+    const val=state.answers[q.id];
+    const correct=isCorrect(q,val);
+    els.feedbackArea.innerHTML=`
+      <div class="feedback ${correct?"correct":"wrong"}">
+        <strong>${correct?"Correct!":"Not yet correct."}</strong>
+        ${!correct?`<div>Correct answer: <b>${q.answerDisplay || q.answer}</b></div>`:""}
+        <div class="solution">${q.explanation}</div>
+      </div>`;
+    if(q.type==="mcq" || q.type==="tf"){
+      els.answerArea.querySelectorAll(".option").forEach(opt=>{
+        const v=opt.dataset.value;
+        opt.classList.toggle("correct",v===q.answer);
+        opt.classList.toggle("wrong",v===val && v!==q.answer);
+      });
+    }
+  }
+
+  function clearCurrentAnswer(){
+    const q=state.questions[state.current];
+    delete state.answers[q.id];
+    delete state.checked[q.id];
+    renderQuestion();
+    saveSession();
+  }
+
+  function toggleFlag(){
+    const q=state.questions[state.current];
+    state.flagged[q.id]=!state.flagged[q.id];
+    renderQuestion();
+    saveSession();
+  }
+
+  function startTimer(){
+    clearInterval(state.timerId);
+    if(state.totalSeconds<=0){
+      els.timer.textContent="No limit";
+      return;
+    }
+    updateTimerDisplay();
+    state.timerId=setInterval(()=>{
+      state.remainingSeconds--;
+      updateTimerDisplay();
+      saveSession();
+      if(state.remainingSeconds<=0){
+        clearInterval(state.timerId);
+        alert("Time is up. Your exam will be submitted.");
+        submitExam(true);
+      }
+    },1000);
+  }
+
+  function updateTimerDisplay(){
+    if(state.totalSeconds<=0){els.timer.textContent="No limit";return;}
+    const s=Math.max(0,state.remainingSeconds);
+    const m=Math.floor(s/60);
+    const sec=s%60;
+    els.timer.textContent=`${String(m).padStart(2,"0")}:${String(sec).padStart(2,"0")}`;
+    els.timer.classList.toggle("danger",s<=60);
+  }
+
+  function submitExam(auto=false){
+    if(state.submitted) return;
+    const unanswered=state.questions.filter(q=>state.answers[q.id]===undefined || String(state.answers[q.id]).trim()==="").length;
+    if(!auto && unanswered>0 && !confirm(`You still have ${unanswered} unanswered question(s). Submit anyway?`)) return;
+    state.submitted=true;
+    clearInterval(state.timerId);
+    localStorage.removeItem("ag_exam_session");
+    showResults();
+  }
+
+  function showResults(){
+    let correct=0,blank=0;
+    const outcomes=state.questions.map(q=>{
+      const val=state.answers[q.id];
+      const isBlank=val===undefined || String(val).trim()==="";
+      const good=!isBlank && isCorrect(q,val);
+      if(good) correct++;
+      if(isBlank) blank++;
+      return {q,val,isBlank,good};
+    });
+    const wrong=state.questions.length-correct-blank;
+    const percent=Math.round((correct/state.questions.length)*100);
+    const used=state.totalSeconds>0 ? state.totalSeconds-state.remainingSeconds : Math.floor((Date.now()-state.startTimestamp)/1000);
+
+    els.scoreRing.style.setProperty("--score-angle",`${percent*3.6}deg`);
+    els.scorePercent.textContent=`${percent}%`;
+    els.scoreText.textContent=`${correct} out of ${state.questions.length} correct`;
+    els.correctStat.textContent=correct;
+    els.wrongStat.textContent=wrong;
+    els.blankStat.textContent=blank;
+    els.timeUsedStat.textContent=formatTime(used);
+    els.resultMessage.textContent=
+      percent>=90 ? "Excellent. You are strongly prepared for these topics." :
+      percent>=75 ? "Good work. Review the missed items and formulas once more." :
+      percent>=60 ? "You understand many basics, but more problem practice is needed." :
+      "Review the formula sheet, then retake a shorter practice exam.";
+
+    state.outcomes=outcomes;
+    showScreen("results");
+    renderReview(els.reviewFilter.value);
+  }
+
+  function formatTime(sec){
+    const m=Math.floor(sec/60),s=sec%60;
+    return `${m}m ${s}s`;
+  }
+
+  function renderReview(filter="all"){
+    let rows=state.outcomes || [];
+    if(filter==="wrong") rows=rows.filter(x=>!x.good);
+    if(filter==="correct") rows=rows.filter(x=>x.good);
+    els.reviewList.innerHTML=rows.map((o,index)=>`
+      <div class="review-item ${o.good?"good":"bad"}">
+        <h4>${index+1}. ${o.q.q}</h4>
+        <p><strong>Your answer:</strong> ${o.isBlank?"<em>Unanswered</em>":escapeHtml(o.val)}</p>
+        <p><strong>Correct answer:</strong> ${escapeHtml(o.q.answerDisplay || o.q.answer)}</p>
+        <p><strong>Solution:</strong> ${o.q.explanation}</p>
+      </div>`).join("") || `<p style="color:var(--muted)">No questions match this filter.</p>`;
+  }
+
+  function escapeHtml(s){
+    return String(s ?? "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+  }
+
+  function saveSession(){
+    if(state.submitted || !state.questions.length) return;
+    const serializable={...state,timerId:null};
+    localStorage.setItem("ag_exam_session",JSON.stringify(serializable));
+    refreshResumeButtons();
+  }
+
+  function refreshResumeButtons(){
+    const has=!!localStorage.getItem("ag_exam_session");
+    els.resumeBtn.classList.toggle("hidden",!has);
+    els.clearSavedBtn.classList.toggle("hidden",!has);
+  }
+
+  function resumeSession(){
+    try{
+      const saved=JSON.parse(localStorage.getItem("ag_exam_session"));
+      if(!saved || !saved.questions?.length) throw new Error("Invalid session");
+      state={...saved,timerId:null,submitted:false};
+      showScreen("exam");
+      els.checkBtn.classList.toggle("hidden",state.mode!=="practice");
+      buildPalette();
+      renderQuestion();
+      startTimer();
+    }catch(e){
+      localStorage.removeItem("ag_exam_session");
+      alert("The saved attempt could not be restored.");
+      refreshResumeButtons();
+    }
+  }
+
+  function goHome(){
+    if(!els.examScreen.classList.contains("hidden")){
+      if(!confirm("Return to the home screen? Your current attempt will stay saved.")) return;
+      clearInterval(state.timerId);
+    }
+    showScreen("home");
+    refreshResumeButtons();
+  }
+
+  els.reviewerBtn.addEventListener("click",()=>{
+    if(!els.examScreen.classList.contains("hidden")){
+      if(!confirm("Open the reviewer? Your current exam progress will be saved and paused.")) return;
+      saveSession();
+      clearInterval(state.timerId);
+    }
+    showScreen("reviewer");
+  });
+  els.homeReviewerBtn.addEventListener("click",()=>showScreen("reviewer"));
+  els.reviewerFormulaBtn.addEventListener("click",()=>els.formulaModal.classList.remove("hidden"));
+  els.reviewerQuizBtn.addEventListener("click",()=>{
+    showScreen("home");
+    setTimeout(()=>document.querySelector(".setup")?.scrollIntoView({behavior:"smooth",block:"start"}),120);
+  });
+  els.startBtn.addEventListener("click",startExam);
+  els.resumeBtn.addEventListener("click",resumeSession);
+  els.clearSavedBtn.addEventListener("click",()=>{
+    if(confirm("Delete the saved attempt?")){
+      localStorage.removeItem("ag_exam_session");refreshResumeButtons();
+    }
+  });
+  els.prevBtn.addEventListener("click",()=>{if(state.current>0){state.current--;renderQuestion();saveSession();}});
+  els.nextBtn.addEventListener("click",nextQuestion);
+  els.checkBtn.addEventListener("click",checkCurrent);
+  els.clearAnswerBtn.addEventListener("click",clearCurrentAnswer);
+  els.flagBtn.addEventListener("click",toggleFlag);
+  els.submitBtn.addEventListener("click",()=>submitExam(false));
+  els.homeBtn.addEventListener("click",goHome);
+  els.retryBtn.addEventListener("click",()=>{showScreen("home");refreshResumeButtons();});
+  els.reviewWrongBtn.addEventListener("click",()=>{els.reviewFilter.value="wrong";renderReview("wrong");document.getElementById("reviewList").scrollIntoView({behavior:"smooth"});});
+  els.reviewFilter.addEventListener("change",()=>renderReview(els.reviewFilter.value));
+  els.formulaBtn.addEventListener("click",()=>els.formulaModal.classList.remove("hidden"));
+  els.closeFormulaBtn.addEventListener("click",()=>els.formulaModal.classList.add("hidden"));
+  els.formulaModal.addEventListener("click",e=>{if(e.target===els.formulaModal)els.formulaModal.classList.add("hidden")});
+  document.addEventListener("keydown",e=>{
+    if(e.key==="Escape") els.formulaModal.classList.add("hidden");
+    if(!els.examScreen.classList.contains("hidden") && e.key==="ArrowRight") nextQuestion();
+    if(!els.examScreen.classList.contains("hidden") && e.key==="ArrowLeft" && state.current>0){state.current--;renderQuestion();saveSession();}
+  });
+
+  refreshResumeButtons();
+})();
+</script>
+</body>
+</html>
